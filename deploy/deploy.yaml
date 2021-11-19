@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-app-name
+  namespace: example-ns
+  annotations:
+    image.openshift.io/triggers: |-
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "gradle-test:output"
+          },
+          "fieldPath": "spec.template.spec.containers[0].image"
+        }
+      ]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gradle-test
+  template:
+    metadata:
+      labels:
+        app: gradle-test
+    spec:
+      containers:
+        - name: gradle-test
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/redhat-demo-workspace/gradle-test@sha256:feaaa41884999e2fcc2579425e5db135b2538be1a107225915967bfba5e9b558
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
