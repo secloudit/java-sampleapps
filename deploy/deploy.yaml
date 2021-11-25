@@ -18,14 +18,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gradle-test
+      app: demo-app
   template:
     metadata:
       labels:
-        app: gradle-test
+        app: demo-app
     spec:
       containers:
-        - name: gradle-test
+        - name: demo-app
           image: >-
             image-registry.openshift-image-registry.svc:5000/redhat-demo-workspace/gradle-test@sha256:feaaa41884999e2fcc2579425e5db135b2538be1a107225915967bfba5e9b558
           ports:
